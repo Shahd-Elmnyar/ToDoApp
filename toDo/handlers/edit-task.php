@@ -10,7 +10,7 @@
             $_SESSION['errors'] = "Title of the task must be greater than 3 characters";
         } else {
             //procedure 
-            $sql = "UPDATE [task] SET [title] = ? WHERE [id] = ?";
+            $sql = "{call UpdateTaskTitle(?, ?)}";
             $params = array($title, $id);
             $result = sqlsrv_query($conn, $sql, $params);
             
