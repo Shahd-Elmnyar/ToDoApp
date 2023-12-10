@@ -18,16 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
             $params = array($title, $usersId);
             $result = sqlsrv_query($conn, $sql, $params);
 
-            if ($result) {
+            if ($result === false) {
+                $_SESSION['errors'] = "Error: " . print_r(sqlsrv_errors(), true);
+            } else {
                 $rowsAffected = sqlsrv_rows_affected($result);
-
                 if ($rowsAffected === false) {
-                    echo "Error retrieving rows affected";
+                    $_SESSION['errors'] = "Error retrieving rows affected";
                 } elseif ($rowsAffected > 0) {
                     $_SESSION['success'] = "The new task is added successfully";
                 }
-            } else {
-                echo "Error: " . print_r(sqlsrv_errors(), true);
             }
         } else {
             $_SESSION['errors'] = "User not logged in";
@@ -35,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
     }
 }
 header("Location:../home.php");
-
 
 //Test branch for testing 
 //Test branch conflict 

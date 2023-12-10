@@ -1,16 +1,33 @@
 <?php
-    session_start();
-    require_once '../includes/dbh.inc.php';
+session_start();
+require_once '../includes/dbh.inc.php';
 
-    
 if (isset($_GET['id'])){
     $id = $_GET["id"];
-    $sql = "SELECT* FROM [task] where [id] = '$id'";
-    $result = sqlsrv_query($conn, $sql);
-    $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
-    if(!$row){
-        $_SESSION['errors']= "data not exists";
-        //redirection 
+    
+    // Create a parameterized query
+    $sql = "EXEC GetTaskById @taskId = ?";
+    $params = array($id);
+    
+    // Prepare and execute the query
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
+    if (!$stmt) {
+        $_SESSION['errors'] = "Error preparing statement: " . print_r(sqlsrv_errors(), true);
+        header("Location:../home.php");
+        die;
+    }
+
+    $result = sqlsrv_execute($stmt);
+    if ($result === false) {
+        $_SESSION['errors'] = "Error executing statement: " . print_r(sqlsrv_errors(), true);
+        header("Location:../home.php");
+        die;
+    }
+
+    // Fetch the data
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    if (!$row) {
+        $_SESSION['errors'] = "No data found for the given ID";
         header("Location:../home.php");
         die;
     }

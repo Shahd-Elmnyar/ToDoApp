@@ -1,7 +1,7 @@
 <?php 
     include_once 'header.php';
 ?>
-    <section>
+    <section class = "section">
         <h1> Sign Up</h1>
         <form action ="includes/signup.inc.php"method ="post">
             <input type = "text" name ="name" placeholder="full name...">

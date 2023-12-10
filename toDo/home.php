@@ -68,6 +68,41 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+
+
+if (isset($_SESSION['usersId'])) {
+    $userId = $_SESSION['usersId'];
+
+    // Call the UDF to get the task count for the user
+    $sql = "SELECT dbo.GetTaskCountForUser(?) AS TaskCount";
+    $params = array($userId);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt === false) {
+        $_SESSION['errors'] = "Error retrieving task count: " . print_r(sqlsrv_errors(), true);
+        header("Location:../home.php");
+        exit();
+    }
+
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+    if ($row) {
+        $taskCount = $row['TaskCount'];
+        echo "Task count : $taskCount";
+        // Use $taskCount in your application as needed
+    } else {
+        $_SESSION['errors'] = "Task count not available";
+        header("Location:../home.php");
+        exit();
+    }
+} else {
+    $_SESSION['errors'] = "User ID not found in session";
+    header("Location:../home.php");
+    exit();
+}
+?>
+
                 <?php
                 if (isset($_SESSION['usersId'])) {
                     $usersId = $_SESSION['usersId'];
@@ -78,6 +113,7 @@
                     // Display the tasks
                     if ($result) {
                         while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) :?>
+
                         <tr></tr>
                                 <!-- <td><?php //echo $row['id']; ?></td> -->
                                 <td><?php echo $row['title']; ?></td>

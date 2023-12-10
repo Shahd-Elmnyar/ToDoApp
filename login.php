@@ -1,7 +1,7 @@
 <?php 
     include_once 'header.php';
 ?>
-    <section>
+    <section class ="section" >
         <h1> log in</h1>
         <form action ="includes/login.inc.php"method ="post">
             <input type = "text" name ="uid" placeholder="username / email">
