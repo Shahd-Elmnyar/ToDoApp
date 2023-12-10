@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
     } else {
         if (isset($_SESSION['usersId'])) {
             $usersId = $_SESSION['usersId'];
-            $sql = "{CALL InsertTask(?, ?)}";
+            $sql = "EXEC InsertTask ?, ?";
             $params = array($title, $usersId);
             $result = sqlsrv_query($conn, $sql, $params);
 
@@ -35,3 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
     }
 }
 header("Location:../home.php");
+
+
+//Test branch 
