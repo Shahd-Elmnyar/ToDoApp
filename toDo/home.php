@@ -89,8 +89,40 @@ if (isset($_SESSION['usersId'])) {
 
     if ($row) {
         $taskCount = $row['TaskCount'];
-        echo "Task count : $taskCount";
+        echo "Task count : $h7";
         // Use $taskCount in your application as needed
+    } else {
+        $_SESSION['errors'] = "Task count not available";
+        header("Location:../home.php");
+        exit();
+    }
+} else {
+    $_SESSION['errors'] = "User ID not found in session";
+    header("Location:../home.php");
+    exit();
+}
+?>
+<?php
+if (isset($_SESSION['usersId'])) {
+    $userId = $_SESSION['usersId'];
+
+    // Call the stored procedure to get the count of completed tasks
+    $sql = "{CALL GetDoneTaskCount(?)}";
+    $params = array($userId);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt === false) {
+        $_SESSION['errors'] = "Error retrieving task count: " . print_r(sqlsrv_errors(), true);
+        header("Location:../home.php");
+        exit();
+    }
+
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+    if ($row) {
+        $doneTaskCount = $row['DoneTaskCount'];
+        echo "<br> Number of completed tasks : $doneTaskCount ";
+        // Use $doneTaskCount in your application as needed
     } else {
         $_SESSION['errors'] = "Task count not available";
         header("Location:../home.php");

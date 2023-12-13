@@ -108,6 +108,36 @@ BEGIN
 END
 
 
+alter table task add time datetime ;
+
+
+CREATE TRIGGER Tasks_Insert_Time
+ON [task]
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @TaskTitle NVARCHAR(100)
+    DECLARE @UserID INT
+
+    SELECT @TaskTitle = inserted.title, @UserID = inserted.usersId
+    FROM inserted
+
+    -- Update the 'time' column with the current timestamp
+    UPDATE [task]
+    SET time = GETDATE()
+    WHERE title = @TaskTitle AND usersId = @UserID
+END
+
+
+CREATE PROCEDURE GetDoneTaskCount
+    @userId INT
+AS
+BEGIN
+    SELECT COUNT(*) AS DoneTaskCount
+    FROM [task]
+    WHERE [usersId] = @userId AND [status] = 1;
+END
+
 
 
 
