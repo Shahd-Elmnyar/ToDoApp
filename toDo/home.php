@@ -89,7 +89,7 @@ if (isset($_SESSION['usersId'])) {
 
     if ($row) {
         $taskCount = $row['TaskCount'];
-        echo "Task count : $h7";
+        echo "Task count : $taskCount";
         // Use $taskCount in your application as needed
     } else {
         $_SESSION['errors'] = "Task count not available";
@@ -147,7 +147,8 @@ if (isset($_SESSION['usersId'])) {
                         while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) :?>
 
                         <tr></tr>
-                                <!-- <td><?php //echo $row['id']; ?></td> -->
+                                <!-- <td><?php 
+                                //echo $row['id']; ?></td> -->
                                 <td><?php echo $row['title']; ?></td>
                                 <td>
                                     <form action="handlers/done.php?id=<?php echo $row['id']; ?>" method="POST">

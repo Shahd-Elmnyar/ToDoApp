@@ -2,9 +2,10 @@
 session_start();
 require_once '../../includes/dbh.inc.php';
 
-if (isset($_GET['id']) && isset($_POST['states'])) {
+
+if (isset($_GET['id'])) {
     $id = $_GET["id"];
-    $currentState = isset($_POST['states']) ? 1 : 0;
+    $currentState = isset($_POST['states']) ;
     $previousState = $_POST['previous_state'];
 
     if ($currentState != $previousState) {
