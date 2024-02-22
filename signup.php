@@ -1,47 +1,57 @@
 <?php 
     include_once 'header.php';
 ?>
-    <section class = "section">
-        <h1> Sign Up</h1>
-        <form action ="includes/signup.inc.php"method ="post">
-            <input type = "text" name ="name" placeholder="full name...">
-            <br>
-            <input type = "email" name ="email" placeholder="email">
-            <br>
-            <input type = "text"name ="uid" placeholder="user name">
-            <br>
-            <input type = "password"name ="password" placeholder="password">
-            <br>
-            <input type = "password" name = "passrepeat" placeholder="repeat password">
-            <br>
-            <button type = "submit" name = "submit">sign up</button>
-        </form>
+<section class="section">
+    <h1>Sign Up</h1>
+    <form action="includes/signup.inc.php" method="post">
+        <div>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name...">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email...">
+        </div>
+        <div>
+            <label for="uid">Username:</label>
+            <input type="text" id="uid" name="uid" placeholder="Choose a username...">
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password...">
+        </div>
+        <div>
+            <label for="passrepeat">Repeat Password:</label>
+            <input type="password" id="passrepeat" name="passrepeat" placeholder="Repeat your password...">
+        </div>
+        <button type="submit" name="submit">Sign Up</button>
+    </form>
     <?php
     if (isset($_GET['error'])){
-        if ($_GET['error']=='emptyinput'){
+        if ($_GET['error'] == 'emptyinput'){
             echo '<p>Fill in all fields </p>';
         }
-        elseif ($_GET['error']=='invaliduid'){
+        elseif ($_GET['error'] == 'invaliduid'){
             echo '<p>Choose a proper username! </p>';
         }
-        elseif ($_GET['error']=='invalidemail'){
+        elseif ($_GET['error'] == 'invalidemail'){
             echo '<p>Choose a proper email !</p>';
         }
-        elseif ($_GET['error']=='passwordsdontmatch'){
-            echo "<p>Password doesn't match!</p>";
+        elseif ($_GET['error'] == 'passwordsdontmatch'){
+            echo "<p>Passwords don't match!</p>";
         }
-        elseif ($_GET['error']=='stmtFailed'){
-            echo '<p>Something went wrong , try again!</p>';
+        elseif ($_GET['error'] == 'stmtFailed'){
+            echo '<p>Something went wrong, try again!</p>';
         }
-        elseif ($_GET['error']=='usernametaken'){
+        elseif ($_GET['error'] == 'usernametaken'){
             echo '<p>User already taken !</p>';
         }
-        elseif ($_GET['error']=='none'){
-            echo '<p>You have signed up !</p>';
+        elseif ($_GET['error'] == 'none'){
+            echo '<p>You have signed up!</p>';
         }
     }
-?>
-    </section>
+    ?>
+</section>
 <?php 
     include_once 'footer.php';
 ?>

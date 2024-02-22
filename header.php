@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>php project 1</title>
+    <title>To Do App</title>
     <link rel = "stylesheet" href = "css/reset.css">
     <link rel = "stylesheet" href = "css/style.css">
 </head>
@@ -19,7 +19,7 @@ session_start();
             <ul>
                 <?php
                 if  (isset($_SESSION["usersUid"])){
-                    echo " <li><a href = '../login.php'>Log out</a></li>";
+                    echo " <li><a href = '../login.php'  class='logout-link'>Log out</a></li>";
                 }
                 else {
                     echo " <li><a href= 'index.php' >Home</a></li>";
