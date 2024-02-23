@@ -13,5 +13,5 @@ This Task Management System is a simple, web-based application designed to help 
 
 ### Prerequisites
 
-- PHP 7.4 
+- PHP 8.2.4 
 - SQL Server
